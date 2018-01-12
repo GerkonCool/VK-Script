@@ -19,15 +19,21 @@ def Blacklist_Get():
     getBan = vk.account.getBanned()
     del(getBan[0])
     return len(getBan)
-while True:
-    time.sleep(15)
-    Steam_Status()
-    Blacklist_Get()
-    getInfo = vk.account.getCounters()
-    numMsgs = getInfo.get('messages')
-    numGifts = getInfo.get('gifts')
-    getFriends = vk.friends.get()
-    numFriends = len(getFriends)
-    CurrentTime = a = time.ctime(time.time())
-    StatusFormatting = "📅 {0} | Человек в ЧС: {1} 🔥 | Входящих сообщений: {2} ✉ | Подарков: {3} 🎁 | Друзей: {4} 👬 | Steam: {5} 💻".format(curTime, Blacklist_Get(), numMsgs, numGifts, numFriends, Steam_Status())
-    vk.status.set(text=setStatus)
+def main():
+    while True:
+        try:
+            time.sleep(60)
+            Steam_Status()
+            Blacklist_Get()
+            getInfo = vk.account.getCounters()
+            msg = getInfo.get('messages')
+            gift = getInfo.get('gifts')
+            getFriends = vk.friends.get()
+            lenfriends = len(getFriends)
+            setStatus = "Человек в ЧС: {0} 🔥 | Входящих сообщений: {1} ✉ | Подарков: {2} 🎁 | Друзей: {3} 👬 | Steam: {4} 💻".format(Blacklist_Get(), msg, gift, lenfriends, Steam_Status())
+            vk.status.set(text=setStatus)
+        except Exception as e:
+            print("Catched: ", e)
+            time.sleep(120)
+            main()
+main()
