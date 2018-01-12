@@ -22,18 +22,21 @@ def Blacklist_Get():
 def main():
     while True:
         try:
-            time.sleep(60)
-            Steam_Status()
-            Blacklist_Get()
             getInfo = vk.account.getCounters()
+            time.sleep(5)
             msg = getInfo.get('messages')
             gift = getInfo.get('gifts')
             getFriends = vk.friends.get()
+            time.sleep(5)
             lenfriends = len(getFriends)
             setStatus = "Человек в ЧС: {0} 🔥 | Входящих сообщений: {1} ✉ | Подарков: {2} 🎁 | Друзей: {3} 👬 | Steam: {4} 💻".format(Blacklist_Get(), msg, gift, lenfriends, Steam_Status())
+            time.sleep(5)
+            print("Установка статуса...")
+            time.sleep(10)
             vk.status.set(text=setStatus)
+            print("Закончено!")
+            time.sleep(1800)
         except Exception as e:
-            print("Catched: ", e)
-            time.sleep(120)
+            print("Catched! : ", e)
             main()
 main()
