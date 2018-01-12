@@ -6,7 +6,6 @@ def Steam_Status():
     parsed = response.content.decode('UTF-8')
     parsing = parsed.split()
     for i in parsing:
-        print(i)
         if i == 'Online</div>':
             steamstat = "В сети"
             return steamstat
